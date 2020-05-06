@@ -1,0 +1,17 @@
+{
+  "help": {
+    "command": "--help",
+    "short": "-h",
+    "description": "Display all control commands in the console"
+  },
+  "init": {
+    "command": "--init",
+    "description": "Initial React project, required argument '--name'",
+    "required": {
+      "name": {
+        "command": "--name",
+        "short": "-n"
+      }
+    }
+  }
+}

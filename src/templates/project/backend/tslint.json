@@ -1,0 +1,16 @@
+{
+  "defaultSeverity": "warning",
+  "extends": "tslint-config-airbnb",
+  "jsRules": {},
+  "rules": {
+    "trailing-comma": [ false ],
+    "indent": [true, "spaces"],
+    "linebreak-style": 0,
+    "ter-indent": [
+      true,
+      4,
+      { "SwitchCase": 1 }
+    ]
+  },
+  "rulesDirectory": []
+}

@@ -19,5 +19,19 @@
   "bugs": {
     "url": "https://github.com/SeMech/promo-cli/issues"
   },
-  "homepage": "https://github.com/SeMech/promo-cli#readme"
+  "homepage": "https://github.com/SeMech/promo-cli#readme",
+  "dependencies": {
+    "array-unique": "^0.3.2",
+    "chalk": "^4.0.0",
+    "console.table": "^0.10.0",
+    "copy-dir": "^1.2.0",
+    "cross-spawn": "^7.0.2",
+    "figlet": "^1.4.0",
+    "global-modules": "latest",
+    "minimist": "^1.2.5"
+  },
+  "devDependencies": {
+    "global-paths": "^1.0.0",
+    "is-windows": "^1.0.2"
+  }
 }
