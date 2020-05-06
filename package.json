@@ -1,0 +1,23 @@
+{
+  "name": "promo-cli",
+  "version": "0.0.1",
+  "description": "This cli for Aventica Promo projects",
+  "main": "bin/index.js",
+  "scripts": {
+    "start": "node ./bin/index.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/SeMech/promo-cli.git"
+  },
+  "bin": {
+    "promo-cli": "./bin/index.js"
+  },
+  "keywords": [],
+  "author": "SeMechKa <ioan.ikoval@gmail.com> (https://github.com/SeMech)",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/SeMech/promo-cli/issues"
+  },
+  "homepage": "https://github.com/SeMech/promo-cli#readme"
+}
