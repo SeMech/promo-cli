@@ -1,4 +1,5 @@
-const chalk = require('chalk');
+// const chalk = require('chalk');
+const colors = require('colors');
 const figlet = require('figlet');
 class TemplateApplication {
     constructor() {
@@ -8,7 +9,7 @@ class TemplateApplication {
     }
 
     start() {
-        console.log(chalk.blue(
+        console.log(colors.blue(
             figlet.textSync('Aventica', { horizontalLayout: 'full' })
         ));
         const firstArgument = Object.keys(this.userCommandArgs)[0];
@@ -47,7 +48,11 @@ class TemplateApplication {
     }
 
     handleCommandNotFound(commandName) {
-        console.log(chalk.stderr(`Argument ${chalk.blue(commandName)} not found! To get a list of commands enter --help (or -h)`))
+        if (commandName) {
+            console.log(colors.red(`Argument ${chalk.blue(commandName)} not found! To get a list of commands enter --help (or -h)`))
+        } else {
+            console.log(colors.red('To get a list of commands enter --help (or -h)'));
+        }
     }
 }
 
