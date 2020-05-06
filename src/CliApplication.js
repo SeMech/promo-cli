@@ -1,4 +1,5 @@
 // const chalk = require('chalk');
+const Logger = require('./helpers/Logger');
 const colors = require('colors');
 const path = require('path');
 const cspawn = require('cross-spawn');
@@ -13,25 +14,25 @@ class CliApplication extends TemplateApplication {
         if (checkRequiredArgs(args, commandOptions.required)) {
             const name = args.name || args.n;
             if (name === true) {
-                console.log(colors.red('Required arguments is not found'));
+                Logger.error('Required arguments is not found');
                 return false;
             }
-            console.log(colors.green('Run Created project'));
+            Logger.info('Run Created project');
 
-            console.log(colors.green('Clone boilerplate project'));
+            Logger.info('Clone boilerplate project');
             copyDir.sync(`${root}/promo-cli/src/templates/project`, path.resolve('./', name));
-            console.log(colors.green('Successfully clone'));
+            Logger.info('Successfully clone');
 
-            console.log(colors.green('Install dependencies on frontend'));
+            Logger.info('Install dependencies on frontend');
             const yarnFrontend = cspawn.sync('yarn', [], { stdio: 'inherit', cwd: `./${name}/frontend`});
             if (yarnFrontend.error) {console.log(yarnFrontend.error); return false;}
-            console.log(colors.green('Dependencies installed successfully'));
+            Logger.info('Dependencies installed successfully');
 
-            console.log(colors.green('Project successfully created\nTo start the project, enter commands:'));
-            console.log(colors.blue(`    $ cd ${name}/frontend`));
-            console.log(colors.blue(`    $ yarn start`));
+            Logger.success('Project successfully created! To start the project, enter commands:');
+            Logger.command(`cd ${name}/frontend`);
+            Logger.command('yarn start');
         } else {
-            console.log(colors.red('Required arguments is not found'));
+            Logger.error('Required arguments is not found');
         }
     }
 

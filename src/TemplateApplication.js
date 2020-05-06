@@ -1,6 +1,7 @@
 // const chalk = require('chalk');
 const colors = require('colors');
 const figlet = require('figlet');
+const Logger = require('./helpers/Logger');
 class TemplateApplication {
     constructor() {
         this.commandList = {};
@@ -49,9 +50,9 @@ class TemplateApplication {
 
     handleCommandNotFound(commandName) {
         if (commandName) {
-            console.log(colors.red(`Argument ${chalk.blue(commandName)} not found! To get a list of commands enter --help (or -h)`))
+            Logger.error(`Argument ${chalk.blue(commandName)} not found! To get a list of commands enter --help (or -h)`);
         } else {
-            console.log(colors.red('To get a list of commands enter --help (or -h)'));
+            Logger.error('To get a list of commands enter --help (or -h)');
         }
     }
 }
