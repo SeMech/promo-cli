@@ -13,6 +13,7 @@ class CliApplication extends TemplateApplication {
             const name = args.name || args.n;
             copyDir.sync(`${root}/promo-cli/src/templates/project`, path.resolve('./', name));
             const yarnFrontend = cspawn.sync('yarn', [], { stdio: 'inherit', cwd: `./${name}/frontend`});
+            if (yarnFrontend.error) {console.log(yarnFrontend.error); return false;}
             console.log(chalk.green('Project successfully created\nTo start the project, enter commands:'));
             console.log(chalk.blue(`    $ cd ${name}/frontend`));
             console.log(chalk.blue(`    $ yarn start`));
