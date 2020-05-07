@@ -36,7 +36,7 @@ class CliApplication extends TemplateApplication {
     }
 
     handleCommandGenerate(args, commandOptions) {
-        if (fs.existsSync('./config-cli.json')) {
+        if (fs.existsSync('./config-cli.json') || fs.existsSync('./package.json')) {
             let name = args.name || args.n;
             let pathToComponent = `${DEFAULT_PATH}${name}`;
             if (name.indexOf('/') !== -1) {
