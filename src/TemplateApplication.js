@@ -2,6 +2,7 @@
 const colors = require('colors');
 const figlet = require('figlet');
 const Logger = require('./helpers/Logger');
+const checkRequiredArgs = require('./helpers/CheckRequiredArgs');
 class TemplateApplication {
     constructor() {
         this.commandList = {};
@@ -27,7 +28,11 @@ class TemplateApplication {
                     delete this.userCommandArgs[commandName];
                     const args = this.userCommandArgs;
                     const commandOptions = this.commandList[key];
-                    this[`handleCommand${handleCommandName}`](args, commandOptions);
+                    if (checkRequiredArgs(args, commandOptions.required)) {
+                        this[`handleCommand${handleCommandName}`](args, commandOptions);
+                    } else {
+                        Logger.error('Required arguments is not found or arguments types do not match!');
+                    }
                 } catch (e) {
                     console.log(e);
                 }

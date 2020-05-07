@@ -10,7 +10,25 @@
     "required": {
       "name": {
         "command": "--name",
-        "short": "-n"
+        "short": "-n",
+        "type": "string"
+      }
+    }
+  },
+  "generate": {
+    "command": "--generate",
+    "short": "-g",
+    "description": "Generate component. Required arguments '--name', '--component'. Default path to component src/modules/componentName. For custom path: -n path/to/componentName",
+    "required": {
+      "name": {
+        "command": "--name",
+        "short": "-n",
+        "type": "string"
+      },
+      "component": {
+        "command": "--component",
+        "short": "-c",
+        "type": "boolean"
       }
     }
   }

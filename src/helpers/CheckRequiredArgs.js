@@ -1,4 +1,4 @@
-const checkRequiredArgs = (args, requiredOptions) => {
+const checkRequiredArgs = (args = {}, requiredOptions = {}) => {
     const keysRequiredOptions = Object.keys(requiredOptions);
     const keysArgs = Object.keys(args);
     if (keysRequiredOptions.length > 0 || keysArgs.length > 0) {
@@ -7,7 +7,9 @@ const checkRequiredArgs = (args, requiredOptions) => {
             keysArgs.map((argumentKey) => {
                 if (requiredOptions[key].command.replace('--', '') === argumentKey
                     || (requiredOptions[key].short && requiredOptions[key].short.replace('-', '') === argumentKey)) {
-                    successRequired += 1;
+                    if (typeof args[argumentKey] === requiredOptions[key].type) {
+                        successRequired += 1;
+                    }
                 }
             });
         });
