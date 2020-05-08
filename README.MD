@@ -4,8 +4,8 @@
 $ npm install --global promo-cli (or npm i -g promo-cli)
 $ yarn global add promo-cli
 ```
-##Commands
-#####1. Initial project
+## Commands
+### 1. Initial project
 Creating a project from a boilerplate.
 
 Folder structure:
@@ -20,7 +20,7 @@ projectName
 ```shell script
 npm --init --name ProjectName
 ```
-#####2. Generate component
+### 2. Generate component
 Generate component.
 
 To generate a component, you must be at the root of the project (front-end root). The project must have a `config-cli.json` or `package.json` file. The `config-cli.json` file is generated when the project is initialized.
