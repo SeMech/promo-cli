@@ -1,7 +1,7 @@
 const getFiles = (componentName, componentFileExt = 'jsx') => ([
     {
         fileName: 'index.js',
-        content: `export { default } from './${componentName}.${componentFileExt}'\n`,
+        content: `export { default } from './${componentName}';\n`,
     },
     {
         fileName: `${componentName}.${componentFileExt}`,
