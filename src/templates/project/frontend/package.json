@@ -8,7 +8,8 @@
         "react-inlinesvg": "1.1.7",
         "react-router": "4.3.1",
         "react-router-dom": "4.3.1",
-        "styled-components": "4.1.2"
+        "styled-components": "4.1.2",
+        "deployment": "git+ssh://git@github.com/c7s/deployment.git#release-20170605-AA-2769"
     },
     "devDependencies": {
         "@babel/core": "7.7.2",
