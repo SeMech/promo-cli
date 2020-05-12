@@ -18,7 +18,7 @@ projectName
 ```
 *command:*
 ```shell script
-npm --init --name ProjectName
+promo-cli --init --name ProjectName
 ```
 ### 2. Generate component
 Generate component.
@@ -30,7 +30,7 @@ or enter custom path with componentName.
 
 *command:*
 ```shell script
-npm --generate --component --name ComponentName
+promo-cli --generate --component --name ComponentName
 or
-npm --generate --component --name path/to/ComponentName
+promo-cli --generate --component --name path/to/ComponentName
 ```
