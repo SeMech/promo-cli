@@ -31,10 +31,10 @@ class TemplateApplication {
                     const args = this.userCommandArgs;
                     const commandOptions = this.commandList[key];
                     if (checkRequiredArgs(args, commandOptions.required)) {
-                        const clientPath = path.resolve('.').split('/');
+                        const clientPath = path.resolve('.').split(path.sep);
                         const indexFrontendInPath = clientPath.indexOf('frontend');
                         const currentPath = indexFrontendInPath !== -1
-                            ? path.resolve('.', clientPath.slice(0, indexFrontendInPath + 1).join('/'))
+                            ? path.resolve('.', clientPath.slice(0, indexFrontendInPath + 1).join(path.sep))
                             : null;
                         this[`handleCommand${handleCommandName}`](args, commandOptions, currentPath);
                     } else {

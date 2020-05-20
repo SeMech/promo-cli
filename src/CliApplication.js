@@ -57,8 +57,8 @@ class CliApplication extends TemplateApplication {
         }
 
         Logger.info(`Run create component ${name}`);
-        currentPathToComponent.split('/').reduce((parentDir, childDir) => {
-            const currentDir = path.resolve('/', parentDir, childDir);
+        currentPathToComponent.split(path.sep).reduce((parentDir, childDir) => {
+            const currentDir = path.resolve(path.sep, parentDir, childDir);
             if (!fs.existsSync(currentDir)) {
                 try {
                     fs.mkdirSync(currentDir);
