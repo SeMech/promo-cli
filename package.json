@@ -1,6 +1,6 @@
 {
   "name": "promo-cli",
-  "version": "0.1.7",
+  "version": "1.0.0",
   "description": "This cli for Aventica Promo projects",
   "main": "bin/index.js",
   "scripts": {
