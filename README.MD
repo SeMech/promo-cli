@@ -23,7 +23,7 @@ promo-cli --init --name ProjectName
 ### 2. Generate component
 Generate component.
 
-To generate a component, you must be at the root of the project (front-end root). The project must have a `config-cli.json` or `package.json` file. The `config-cli.json` file is generated when the project is initialized.
+To generate a component, you can be anywhere in the project. The project must have a `config-cli.json` or `package.json` file. The `config-cli.json` file is generated when the project is initialized.
 
 Generate component. Required arguments for type generate entity (component, service, page).\
  Example `--component ComponentName`
