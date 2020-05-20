@@ -1,8 +1,10 @@
 // const chalk = require('chalk');
 const colors = require('colors');
 const figlet = require('figlet');
+const path = require('path');
 const Logger = require('./helpers/Logger');
 const checkRequiredArgs = require('./helpers/CheckRequiredArgs');
+const fs = require('fs');
 class TemplateApplication {
     constructor() {
         this.commandList = {};
@@ -29,7 +31,12 @@ class TemplateApplication {
                     const args = this.userCommandArgs;
                     const commandOptions = this.commandList[key];
                     if (checkRequiredArgs(args, commandOptions.required)) {
-                        this[`handleCommand${handleCommandName}`](args, commandOptions);
+                        const clientPath = path.resolve('.').split('/');
+                        const indexFrontendInPath = clientPath.indexOf('frontend');
+                        const currentPath = indexFrontendInPath !== -1
+                            ? path.resolve('.', clientPath.slice(0, indexFrontendInPath + 1).join('/'))
+                            : null;
+                        this[`handleCommand${handleCommandName}`](args, commandOptions, currentPath);
                     } else {
                         Logger.error('Required arguments is not found or arguments types do not match!');
                     }
@@ -59,6 +66,19 @@ class TemplateApplication {
         } else {
             Logger.error('To get a list of commands enter --help (or -h)');
         }
+
+        this.handleCommandHelp();
+    }
+
+    handleCommandHelp() {
+        const consoleOutput = [];
+        this.commandKeysList.map((commandKey) => {
+            consoleOutput.push({
+                command: `${this.commandList[commandKey].command} ${this.commandList[commandKey].short || ''}`,
+                description: this.commandList[commandKey].description,
+            });
+        });
+        console.table(consoleOutput);
     }
 }
 

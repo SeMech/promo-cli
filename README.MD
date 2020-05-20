@@ -25,12 +25,12 @@ Generate component.
 
 To generate a component, you must be at the root of the project (front-end root). The project must have a `config-cli.json` or `package.json` file. The `config-cli.json` file is generated when the project is initialized.
 
-Generate with default path to component src/modules/ComponentName\
-or enter custom path with componentName.
+Generate component. Required arguments for type generate entity (component, service, page).\
+ Example `--component ComponentName`
 
 *command:*
 ```shell script
-promo-cli --generate --component --name ComponentName
-or
-promo-cli --generate --component --name path/to/ComponentName
+promo-cli --generate --component ComponentName
+promo-cli --generate --service ServiceName
+promo-cli --generate --page PageName
 ```
