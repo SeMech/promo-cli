@@ -30,24 +30,39 @@ class Generate extends CommandHandler {
         }
         this.logger.info(`Run generate ${this.typeGenerateModule.flag}`);
 
-        const getTemplateFiles = require(`./templates/frontend/${this.typeGenerateModule.flag}`);
-        const files = getTemplateFiles(this.commandArgs.name);
-
-        const pathToEntity = this.generateDirToEntity(
-            path.join(
-                this.clientPath,
-                'frontend',
-                this.typeGenerateModule.directory,
-                this.commandArgs.name,
-            )
+        let pathToEntity = path.join(
+            this.clientPath,
+            'frontend',
+            this.typeGenerateModule.directory,
+            this.commandArgs.name,
         );
+
+        if (this.commandArgs['add']) {
+            if (!fs.existsSync(pathToEntity)) {
+                this.logger.info('Entity is not exists!');
+                return false;
+            }
+
+            pathToEntity = path.join(pathToEntity, this.commandArgs['add']);
+        }
+
+        if (fs.existsSync(pathToEntity)) {
+            this.logger.info('Entity exists!');
+            return false;
+        }
+
+        this.generateDirToEntity(pathToEntity);
+
+        const getTemplateFiles = require(`./templates/frontend/${this.typeGenerateModule.flag}`);
+        const files = getTemplateFiles(this.commandArgs['add'] || this.commandArgs.name);
 
         files.map((file) => {
             console.log(`${pathToEntity}/${file.fileName}`);
             fs.writeFileSync(`${pathToEntity}/${file.fileName}`, file.content);
         });
 
-        this.logger.success(`${this.typeGenerateModule.flag} successfully created!`)
+        this.logger.success(`${this.typeGenerateModule.flag} successfully created!`);
+        return true;
     }
 
     generateBackend() {

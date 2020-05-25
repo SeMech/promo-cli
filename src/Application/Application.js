@@ -68,6 +68,16 @@ class Application {
             this.error.status = STATUS_ERROR_CHECK_COMMAND.REQUIRED_ARGS_NOT_FOUND;
             return false;
         }
+        let countOptionsArgsInClientCommand = 0;
+        const filteredOptionsArgs = clientCommand.arguments.optional.filter((argument) => {
+            const argumentValue = this.clientArgs[argument.argName];
+            if (argumentValue) countOptionsArgsInClientCommand += 1;
+            return argumentValue && typeof argumentValue === argument.type;
+        });
+        if (filteredOptionsArgs.length !== countOptionsArgsInClientCommand) {
+            this.error.status = STATUS_ERROR_CHECK_COMMAND.OPTIONS_ARGS_INVALID_TYPES;
+            return false;
+        }
         return true;
     }
 }

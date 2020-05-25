@@ -47,6 +47,10 @@
           {
             "argName": "util",
             "type": "boolean"
+          },
+          {
+            "argName": "add",
+            "type": "string"
           }
         ],
         "required": [
