@@ -1,84 +1,50 @@
-const parseCommand = require('../lib/parseCommand');
-const printAventica = require('../lib/printAventica');
-const getAbsolutePathProject = require('../lib/getAbsolutePathProject');
+// signature promo-cli <command> <flags> <entity> <options> <arguments>
 
-const {STATUS_ERROR_CHECK_COMMAND} = require('../lib/consts');
+// CommandController
+// FlagController
+// OptionController
 
-const ClientCommands = require('../Commands/ClientCommands');
-const HelpCommand = require('../lib/HelpCommand');
+// CommandController -> checkFlags -> checkEntity -> checkOptions and checkArguments |
+//      |     <-----         <------          <------         <-------------------- <-
+
+// cli <command> [frontend/backend]]<flag> <entity> <options> <arguments>
+// 1 example
+// cli init<command> PromoProject<argument>
+// 2 example
+// cli generate(g)<command> --frontend(-f)<flag> page<entity> Main --route(-r)<option> '/'<argument>
+// long version: cli generate --frontend page Main --route '/'
+// short version: cli g -f page Main -r '/'
+// 3 example
+// cli build<command> fonts<entity>
+// 4 example
+// cli generate -f page Main --add MainButton
+// 5 example
+// cli generate-add<command> MainButton --target(-t) Main
+
+// examples generate command:
+// cli g -f page Main
+// cli g -f component Modal
+// cli g -f common Button
+// cli g -f service Api
+// cli g -f utils mediaWidth
+// cli g -b model User
+// cli g -b repository UserRepository //хотя это спорно, можно навреное и генерировать сразу с моделью //ну да, так даже лучше будет
+// cli g -b domain User
+// cli g -b controller UserController
+// cli g -b dto CreateUserRequest
+
+
+// cli frontend <command> <entity> <options> <arguments>
+// cli frontend generate route "/user" User
+// cli init
+
+// cli (initial Application) Application.start()
+// cli frontend/backend is Application.start(frontend/backend) -> frontend(backend).controller
+// cli frontend
 
 class Application {
-    constructor() {
-        this.clientArgs = parseCommand(process.argv, ClientCommands.aliasArguments);
-        this.currentCommand = null;
-        this.clientPath = getAbsolutePathProject();
-        this.helpCommand = new HelpCommand();
-        this.error = {};
-    }
-
     start() {
-        printAventica();
-
-        if (this.checkAndRunHelpCommand()) { return false; }
-
-        if (!this.checkClientCommand()) {
-            this.helpCommand.runCommand(this.error);
-            return false;
-        }
-
-        const HandleClass = require(`../Commands/handleClasses/${this.currentCommand.handleClass}Handler/${this.currentCommand.handleClass}`);
-        const HandleCommand = new HandleClass({ args: this.clientArgs, clientPath: this.clientPath });
-
-        if (!this.checkRequiredProject(HandleCommand.isRequiredProject)) {
-            this.helpCommand.runCommand(this.error);
-            return false;
-        }
-
-        HandleCommand.runCommand();
-    }
-
-    checkAndRunHelpCommand() {
-        if (this.clientArgs && this.clientArgs.help) {
-            this.helpCommand.runCommand();
-            return true;
-        }
-        return false;
-    }
-
-    checkRequiredProject(isRequiredProject) {
-        if ((isRequiredProject && this.clientPath) || !isRequiredProject) {
-            return true;
-        }
-        this.error.status = STATUS_ERROR_CHECK_COMMAND.IS_REQUIRED_PROJECT;
-        return false;
-    }
-
-    checkClientCommand() {
-        const clientCommand = ClientCommands.commands.filter((clientCommand) => clientCommand.command === this.clientArgs._[0])[0];
-        if (!clientCommand) {
-            this.error.status = STATUS_ERROR_CHECK_COMMAND.COMMAND_NOT_FOUND;
-            return false;
-        }
-        const filteredRequiredArgs = clientCommand.arguments.required.filter((argument) => {
-            const argumentValue = this.clientArgs[argument.argName];
-            return argumentValue && typeof argumentValue === argument.type;
-        });
-        this.currentCommand = clientCommand;
-        if (filteredRequiredArgs.length !== clientCommand.arguments.required.length) {
-            this.error.status = STATUS_ERROR_CHECK_COMMAND.REQUIRED_ARGS_NOT_FOUND;
-            return false;
-        }
-        let countOptionsArgsInClientCommand = 0;
-        const filteredOptionsArgs = clientCommand.arguments.optional.filter((argument) => {
-            const argumentValue = this.clientArgs[argument.argName];
-            if (argumentValue) countOptionsArgsInClientCommand += 1;
-            return argumentValue && typeof argumentValue === argument.type;
-        });
-        if (filteredOptionsArgs.length !== countOptionsArgsInClientCommand) {
-            this.error.status = STATUS_ERROR_CHECK_COMMAND.OPTIONS_ARGS_INVALID_TYPES;
-            return false;
-        }
-        return true;
+        console.log('start');
     }
 }
 
