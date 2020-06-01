@@ -22,9 +22,11 @@
   "homepage": "https://github.com/SeMech/promo-cli#readme",
   "dependencies": {
     "colors": "^1.4.0",
+    "commander": "^5.1.0",
     "console.table": "^0.10.0",
     "cross-spawn": "^7.0.2",
     "figlet": "^1.4.0",
-    "minimist": "^1.2.5"
+    "minimist": "^1.2.5",
+    "yargs": "^15.3.1"
   }
 }

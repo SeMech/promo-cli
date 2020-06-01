@@ -1,4 +1,4 @@
-// signature promo-cli <command> <flags> <entity> <options> <arguments>
+// signature promo-cli <command> <flags> <entity> <arguments>
 
 // CommandController
 // FlagController
@@ -42,9 +42,61 @@
 // cli frontend/backend is Application.start(frontend/backend) -> frontend(backend).controller
 // cli frontend
 
+// const minimist = require('minimist');
+// const yargs = require('yargs');
+// // const { argv } = require('yargs');
+//
+// console.log(
+//     yargs.command({
+//         command: 'generate[g] <flags> [flags] <entity> [entity] <arguments>]',
+//         aliases: ['generate', 'g'],
+//         desc: '',
+//         // builder: (y) => console.log(y),
+//         handler: (yy) => console.log(yy.key, yy.value),
+//     }).help().argv
+// );
+
+const Commander = require('commander');
+const { version } = require('../../package');
+const getAbsolutePath = require('../Lib/getAbsolutePathProject');
+const logger = require('../Lib/logger');
+
 class Application {
+    constructor() {
+        this.version = version;
+        this.programm = new Commander.Command();
+        this.programm.passCommandToAction(false);
+        this.programm.storeOptionsAsProperties(true);
+        this.programm.version(this.version);
+
+        this.absolutePath = getAbsolutePath();
+    }
+
+    loadCommands() {
+        const commands = require('../Commands');
+        commands.map((commandClass) => {
+            const command = new commandClass();
+            command.absolutePath = this.absolutePath;
+            const programCommand = this.programm.command(command.signature);
+            if (command.alias) {
+                programCommand.alias(command.alias);
+            }
+            command.options.map((commandOption) => {
+                programCommand.option(commandOption.option, commandOption.description);
+            });
+            programCommand.action((...args) => {
+                if (command.isRequiredProject && !this.absolutePath) {
+                    logger.error('Project not found!');
+                    return false;
+                }
+                command.action(...args);
+            });
+        })
+    }
+
     start() {
-        console.log('start');
+        this.loadCommands();
+        this.programm.parse(process.argv);
     }
 }
 
