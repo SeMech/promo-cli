@@ -13,31 +13,28 @@ Folder structure:
 projectName
 ├── backend
 └── frontend
-    ├── src
-    └── ...
+    └── src
+        ├── Application
+        ├── common
+        ├── component
+        ├── pages
+        ├── services
+        ├── utils
+        └── config
 ```
 *command:*
 ```shell script
-promo-cli --init --name ProjectName
+promo-cli init ProjectName
+(promo-cli init<command> PromoProject<argument>)
 ```
 ### 2. Generate component
 Generate component.
 
-To generate a component, you can be anywhere in the project. The project must have a `config-cli.json` or `package.json` file. The `config-cli.json` file is generated when the project is initialized.
-
-Generate component. Required arguments for type generate entity (component, service, page).\
- Example `--component ComponentName`
-
 *command:*
 ```shell script
-promo-cli --generate --component ComponentName
-promo-cli --generate --service ServiceName
-promo-cli --generate --page PageName
+$ promo-cli g -f page Main
+$ promo-cli g -f component Modal
+$ promo-cli g -f common Button
+$ promo-cli g -f service Api
+$ promo-cli g -f utils mediaWidth
 ```
-
-## Updates
-### v1.0.0
-* Added command for init download from repository instead of copying from cli folders
-* Now you can only generate strictly a service, page or component, without specifying a folder
-* Added strict folder structure
-* Now you can run cli to generate from anywhere in the current project, the main thing is that there is a `frontend` in the current path
