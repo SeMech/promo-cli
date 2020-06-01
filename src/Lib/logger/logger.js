@@ -10,9 +10,12 @@ const error = (string) => log(colors.red(`[ERROR] ${string}`));
 
 const command = (string) => log(colors.gray.italic(`$ ${string}`));
 
+const print = (string) => log(string);
+
 module.exports = {
     info,
     command,
     success,
     error,
+    print,
 };
