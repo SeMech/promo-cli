@@ -23,7 +23,6 @@ class InitCommand extends Command {
             `{
     "project": {
         "name": "${projectName}",
-        "path": "${pathToProject}"
     }
 }`);
         this.logger.success('Project successfully created!');
