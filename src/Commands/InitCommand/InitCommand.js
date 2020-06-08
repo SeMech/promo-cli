@@ -16,7 +16,6 @@ class InitCommand extends Command {
         this.spawnSync('git', ['clone', 'git@github.com:c7s/promo-core.git', projectName], {stdio: 'inherit'});
         this.spawnSync('rm', ['-rf', '.git'], {stdio: 'inherit', cwd: `./${projectName}`});
         this.logger.info('Download successfully');
-        const pathToProject = path.resolve('.', `${projectName}`);
 
         fs.writeFileSync(
             `./${projectName}/${CLIENT_PROJECT_CONFIG}`,
